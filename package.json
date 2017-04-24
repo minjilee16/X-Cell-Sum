@@ -1,0 +1,19 @@
+{
+  "name": "c-cellsum",
+  "version": "1.0.0",
+  "description": "world's smallest spreadsheet which can be added up all numbers  ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minjilee8816/X-Cell-Sum.git"
+  },
+  "author": "Minji (minjilee8816@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minjilee8816/X-Cell-Sum/issues"
+  },
+  "homepage": "https://github.com/minjilee8816/X-Cell-Sum#readme"
+}
