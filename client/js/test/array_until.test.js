@@ -1,4 +1,4 @@
-const { getRange,letterGetRange } = require('../array_until'); 
+const { getRange,getLetterRange } = require('../array_until'); 
 
 describe('array_until', () => {
 	describe('getRange()', () => {
@@ -16,13 +16,13 @@ describe('array_until', () => {
 	});
 
 
-	describe('letterGetRange', () => {
+	describe('getLetterRange', () => {
 		it('produces a value range from letter A to C', () => {
-			expect(letterGetRange("A",2)).toEqual(["A","B"]);
+			expect(getLetterRange("A",2)).toEqual(["A","B"]);
 		});
 
 		it('produces a value range from letter C to F', () => {
-			expect(letterGetRange("C",4)).toEqual(["C","D","E","F"]);
+			expect(getLetterRange("C",4)).toEqual(["C","D","E","F"]);
 		});
 	});
 });

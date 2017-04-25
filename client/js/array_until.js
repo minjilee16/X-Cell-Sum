@@ -3,7 +3,7 @@ const getRange = function (fromNum, toNum) {
 		(unused, i) => i +fromNum);
 }
 
-const letterGetRange = function (firstLetter="A", numLetters) {
+const getLetterRange = function (firstLetter="A", numLetters) {
 	const rangeStart = firstLetter.charCodeAt(0);
 	const rangeEnd = rangeStart + numLetters  -1; 
 	return getRange(rangeStart, rangeEnd)
@@ -14,5 +14,5 @@ const letterGetRange = function (firstLetter="A", numLetters) {
 
 module.exports={
 	getRange : getRange,
-	letterGetRange : letterGetRange
+	getLetterRange : getLetterRange
 };
