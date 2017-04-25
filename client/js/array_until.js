@@ -3,7 +3,7 @@ const getRange = function (fromNum, toNum) {
 		(unused, i) => i +fromNum);
 }
 
-const getLetterRange = function (firstLetter="A", numLetters) {
+const letterGetRange = function (firstLetter="A", numLetters) {
 	const rangeStart = firstLetter.charCodeAt(0);
 	const rangeEnd = rangeStart + numLetters  -1; 
 	return getRange(rangeStart, rangeEnd)
@@ -12,7 +12,13 @@ const getLetterRange = function (firstLetter="A", numLetters) {
 }
 
 
+// const sum = function (allNum) {
+// 	return allNum.reduce((a,b) => a+b); 
+// }
+
+
 module.exports={
 	getRange : getRange,
-	getLetterRange : getLetterRange
+	letterGetRange : letterGetRange, 
+	// sum : sum 
 };

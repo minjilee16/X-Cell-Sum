@@ -14,7 +14,7 @@ const getRange = function (fromNum, toNum) {
 		(unused, i) => i +fromNum);
 }
 
-const getLetterRange = function (firstLetter="A", numLetters) {
+const letterGetRange = function (firstLetter="A", numLetters) {
 	const rangeStart = firstLetter.charCodeAt(0);
 	const rangeEnd = rangeStart + numLetters  -1; 
 	return getRange(rangeStart, rangeEnd)
@@ -23,9 +23,15 @@ const getLetterRange = function (firstLetter="A", numLetters) {
 }
 
 
+// const sum = function (allNum) {
+// 	return allNum.reduce((a,b) => a+b); 
+// }
+
+
 module.exports={
 	getRange : getRange,
-	getLetterRange : getLetterRange
+	letterGetRange : letterGetRange, 
+	// sum : sum 
 };
 },{}],3:[function(require,module,exports){
 const removeChildren = function (parentEl) {
@@ -81,7 +87,7 @@ class TableModel {
 
 module.exports=TableModel;
 },{}],5:[function(require,module,exports){
-const { getLetterRange } = require ('./array_until');
+const { letterGetRange, getRange } = require ('./array_until');
 const { removeChildren, createTH, createTR, createTD } = require('./dom_until'); 
 
 
@@ -101,8 +107,9 @@ class TableView {
 	initDomReferences() {
 		this.headerRowEl = document.querySelector('THEAD TR'); 
 		this.sheetBodyEl = document.querySelector('TBODY'); 
-		this.footerRowEl = document.querySelector('TFOOT TR'); 
-		this.formulaBarEl=document.querySelector('#formula-bar')
+		this.footerEl = document.querySelector('TFOOT'); 
+		this.formulaBarEl=document.querySelector('#formula-bar'); 
+		this.table= document.querySelector('TABLE');
 	}
 
 	initCurrentCell() {
@@ -125,11 +132,12 @@ class TableView {
 		this.renderTableHeader();
 		this.renderTableFooter();
 		this.renderTableBody();
+		this.sum();
 	}
 
 	renderTableHeader() {
 		removeChildren(this.headerRowEl);
-		getLetterRange('A', this.model.numCols)
+		letterGetRange('A', this.model.numCols)
 		.map(colLabel => createTH(colLabel))
 		.forEach(th => this.headerRowEl.appendChild(th)); 
 	}
@@ -151,8 +159,6 @@ class TableView {
 				if(this.isCurrentCell(col, row)) {
 					td.className = 'current-cell'; 
 				}
-
-
 				tr.appendChild(td); 
 			}
 			fragment.appendChild(tr); 
@@ -161,25 +167,38 @@ class TableView {
 		this.sheetBodyEl.appendChild(fragment); 
 	}
 
+	getColumnCount () {
+		this.columnCount = document.getElementById('sheet-current').querySelector('TR')[0].querySelector('TD').length; 
+	}
+
+
+	sum (ths) {
+       	const row = this.table.rows[ths.parentNode.parentNode.rowIndex];
+       	let sum=0;
+       	for(let i=0;i<this.columnCount; i++){
+            sum += parseInt(row.cells[i].childNodes[0].value);
+       	}
+        row.cells[this.columnCount].innerHTML = sum;
+	}	
+
+	// SumValueForFooter() {
+
+	// }
+
 	renderTableFooter() {
-		removeChildren(this.footerRowEl);
-		for(let row =0; row < this.model.numRows; row++) {
-			const tr = createTR(); 
-			this.renderTableBody()
-
+		const tr = createTR();
+		for(let col =0; col<this.model.numCols; col++){
+			const td= createTD();
+			tr.appendChild(td);
 		}
-
-		getLetterRange('A', this.model.numCols)
-		.map(colLabel => createTH(colLabel))
-		.forEach(th => this.footerRowEl.appendChild(th)); 
-
+			removeChildren(this.footerEl);
+			this.footerEl.appendChild(tr);
 	}
 
 	attachEventHandlers () {
 		this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this)); 
 		this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this)); 
 	}
-
 
 	handleFormulaBarChange(evt) {
 		const value = this.formulaBarEl.value; 
@@ -194,7 +213,6 @@ class TableView {
 		this.renderTableBody(); 
 		this.renderFormulaBar(); 
 	}
-
 }
 
 
