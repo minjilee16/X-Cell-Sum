@@ -86,24 +86,23 @@ class TableView {
 	sum () {
 
   		const tr = document.querySelector('TR');
-  		let nums= [0]; 
+  		let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return 0 });
 
-		// for(let row =0; row < tr.length; row++) {
-		// 	const tr = createTR(); 
-		// 	for(let col =0; col<this.model.numCols; col++) {
-		// 		const position = {col:col, row:row}; 
-		// 		const value = this.model.getValue(position);
-		// 		nums[col] += parseInt(value);
-		//  	}
-		// }
-		console.log(tr);
-  		tr.forEach(function (row) { 
-  			tr.forEach(function (col) {
-  				const position = {col:col, row:row}; 
+		for(let row =0; row < this.model.numRows; row++) {
+			for(let col =0; col<this.model.numCols; col++) {
+				const position = {col:col, row:row}; 
 				const value = this.model.getValue(position);
-  				nums.push(  parseInt(value) );
-  			}); 
-  		}); 
+				nums[col] += parseInt(value);
+		 	}
+		}
+// 		console.log(tr);
+//   		tr.forEach(function (row) { 
+//   			tr.forEach(function (col) {
+//   				const position = {col:col, row:row}; 
+// 				const value = this.model.getValue(position);
+//   				nums.push(  parseInt(value) );
+//   			}); 
+//   		}); 
   		const numsSum = nums.reduce((a,b) => a+b); 
 	}
 
