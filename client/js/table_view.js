@@ -80,17 +80,15 @@ class TableView {
 
 
 	sum () {
-  		let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return 0 });
+  		let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return null });
 
 		for(let row =0; row < this.model.numRows; row++) {
 			for(let col =0; col<this.model.numCols; col++) {
 				const position = {col:col, row:row}; 
 				const value = this.model.getValue(position);
 				const onlyNum = parseInt(value); 
-				if( nums[col] === 0) {
-					nums[col] =null;
-				} else if(!isNaN(onlyNum) ) {
-					nums[col] += Number(onlyNum);
+				if(!isNaN(onlyNum) ) {
+					nums[col] += onlyNum;
 				} 
   			}
   		} 
@@ -139,4 +137,4 @@ class TableView {
 
 
 
-module.exports=TableView; 
+module.exports=TableView;
