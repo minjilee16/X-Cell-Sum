@@ -167,48 +167,48 @@ class TableView {
 		this.sheetBodyEl.appendChild(fragment); 
 	}
 
-	// getColumnCount () {
-	// 	this.columnCount = document.getElementById('sheet-current').querySelector('TR')[0].querySelector('TD').length; 
-	// }
-
 
 	sum () {
+  		let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return 0 });
 
-  		const tr = document.querySelector('TR');
-  		let nums= [0]; 
-
-		// for(let row =0; row < tr.length; row++) {
-		// 	const tr = createTR(); 
-		// 	for(let col =0; col<this.model.numCols; col++) {
-		// 		const position = {col:col, row:row}; 
-		// 		const value = this.model.getValue(position);
-		// 		nums[col] += parseInt(value);
-		//  	}
-		// }
-		console.log(tr);
-  		tr.forEach(function (row) { 
-  			tr.forEach(function (col) {
-  				const position = {col:col, row:row}; 
+		for(let row =0; row < this.model.numRows; row++) {
+			for(let col =0; col<this.model.numCols; col++) {
+				const position = {col:col, row:row}; 
 				const value = this.model.getValue(position);
-  				nums.push(  parseInt(value) );
-  			}); 
-  		}); 
-  		const numsSum = nums.reduce((a,b) => a+b); 
+				const onlyNum = parseInt(value); 
+				if( nums[col] === 0) {
+					nums[col] =null;
+				} else if(!isNaN(onlyNum) ) {
+					nums[col] += Number(onlyNum);
+				} 
+  			}
+  		} 
+  		return nums; 
 	}
+
 
 	renderTableFooter() {
 		const tr = createTR();
+	
 		for(let col =0; col<this.model.numCols; col++){
 			const td= createTD();
 			tr.appendChild(td);
 		}
-			removeChildren(this.footerEl);
-			this.footerEl.appendChild(tr);
+		removeChildren(this.footerEl);
+		this.footerEl.appendChild(tr);
+
+		let footCol = this.footerEl.querySelectorAll('TD');
+		let numsSum = this.sum();
+		for (let i=0; i < this.model.numCols; i++) {
+			footCol[i].textContent = numsSum[i];
+		}
 	}
+
 
 	attachEventHandlers () {
 		this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this)); 
 		this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this)); 
+		this.formulaBarEl.addEventListener('keyup', this.renderTableFooter.bind(this)); 
 	}
 
 	handleFormulaBarChange(evt) {
