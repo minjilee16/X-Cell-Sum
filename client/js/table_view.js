@@ -20,7 +20,8 @@ class TableView {
 		this.sheetBodyEl = document.querySelector('TBODY'); 
 		this.footerEl = document.querySelector('TFOOT'); 
 		this.formulaBarEl=document.querySelector('#formula-bar'); 
-		this.table= document.querySelector('TABLE');
+		this.addRowEl = document.querySelector('#addRow');
+		this.addColEl = document.querySelector('#addColumn');
 	}
 
 	initCurrentCell() {
@@ -44,6 +45,7 @@ class TableView {
 		this.renderTableFooter();
 		this.renderTableBody();
 		this.sum();
+		this.addRow(); 
 	}
 
 	renderTableHeader() {
@@ -58,6 +60,26 @@ class TableView {
 		       this.currentCellLocation.row === row; 
 	}
 
+	addRow() {
+		//  const tr = createTR();
+		//  for(let col =0; col<this.model.numCols; col++){
+		// 	const td= createTD();
+		// 	tr.appendChild(td);
+		// }
+		// this.sheetBodyEl.appendChild(tr);
+		// this.model.rows = this.model.rows+1
+		this.model.numRows++;
+		this.renderTableBody()
+
+	}
+
+	addColmn ( ) {
+		this.model.numCols++;
+		this.renderTableHeader();
+		this.renderTableBody();
+		this.sum();
+		this.renderTableFooter();
+	}
 	renderTableBody() {
 		const fragment = document.createDocumentFragment();
 		for(let row =0; row < this.model.numRows; row++) {
@@ -74,20 +96,25 @@ class TableView {
 			}
 			fragment.appendChild(tr); 
 		}
+
 		removeChildren(this.sheetBodyEl); 
 		this.sheetBodyEl.appendChild(fragment); 
+
+	
 	}
+
+
 
 
 	sum () {
   		let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return null });
-
 		for(let row =0; row < this.model.numRows; row++) {
 			for(let col =0; col<this.model.numCols; col++) {
 				const position = {col:col, row:row}; 
 				const value = this.model.getValue(position);
+	
 				const onlyNum = parseInt(value); 
-				if(!isNaN(onlyNum) ) {
+				 if( !isNaN(onlyNum) ) {
 					nums[col] += onlyNum;
 				} 
   			}
@@ -98,7 +125,6 @@ class TableView {
 
 	renderTableFooter() {
 		const tr = createTR();
-	
 		for(let col =0; col<this.model.numCols; col++){
 			const td= createTD();
 			tr.appendChild(td);
@@ -118,13 +144,17 @@ class TableView {
 		this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this)); 
 		this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this)); 
 		this.formulaBarEl.addEventListener('keyup', this.renderTableFooter.bind(this)); 
+		this.addRowEl.addEventListener('click', this.addRow.bind(this)); 
+		this.addColEl.addEventListener('click', this.addColmn.bind(this)); 
 	}
+
 
 	handleFormulaBarChange(evt) {
 		const value = this.formulaBarEl.value; 
 		this.model.setValue(this.currentCellLocation, value);
 		this.renderTableBody();
 	}
+
 
 	handleSheetClick(evt) {
 		const col = evt.target.cellIndex; 
@@ -137,4 +167,4 @@ class TableView {
 
 
 
-module.exports=TableView;
+module.exports=TableView; 
