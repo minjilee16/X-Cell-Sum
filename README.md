@@ -6,13 +6,9 @@ This is a microscopic "spreadsheet" app that you can add up the numbers.
 
 
 ## Feature spec
-![img] (/Users/minjilee/Downloads/X-CellSumTech-Spec/Feature-Spec.jpg)
+![img] (https://docs.google.com/document/d/12svqZXVipLlviyBCp9y4BaCG5PrNXrtHyD7-tPp1wsk/edit)
 
 
 
 ## Teach Spec
-![img] (/Users/minjilee/Downloads/X-CellSumTech-Spec/Tech-Spec1.jpg)
-
-![img] (/Users/minjilee/Downloads/X-CellSumTech-Spec/Tech-Spec.jpg
-)
-
+![img] (https://docs.google.com/document/d/12svqZXVipLlviyBCp9y4BaCG5PrNXrtHyD7-tPp1wsk/edit)
