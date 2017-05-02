@@ -4,9 +4,11 @@ const { removeChildren, createTH, createTR, createTD } = require('./dom_until');
 
 
 class TableView {
+	
 	constructor (model) {
 		this.model = model; 
 	}
+
 
 	init() {
 		this.initDomReferences();
@@ -14,6 +16,7 @@ class TableView {
 		this.renderTable();
 		this.attachEventHandlers();
 	}
+
 
 	initDomReferences() {
 		this.headerRowEl = document.querySelector('THEAD TR'); 
@@ -24,14 +27,17 @@ class TableView {
 		this.addColEl = document.querySelector('#addColumn');
 	}
 
+
 	initCurrentCell() {
 		this.currentCellLocation = { col: 0, row: 0};
 		this.renderFormulaBar(); 
 	}
 
+
 	normalizeValueForRendering(value) {
 		return value || '';
 	}
+
 
 	renderFormulaBar () {
 		const currentCellValue = this.model.getValue(this.currentCellLocation);
@@ -48,6 +54,7 @@ class TableView {
 		this.addRow(); 
 	}
 
+
 	renderTableHeader() {
 		removeChildren(this.headerRowEl);
 		letterGetRange('A', this.model.numCols)
@@ -55,23 +62,18 @@ class TableView {
 		.forEach(th => this.headerRowEl.appendChild(th)); 
 	}
 
+
 	isCurrentCell(col, row) {
 		return this.currentCellLocation.col === col &&
 		       this.currentCellLocation.row === row; 
 	}
 
+
 	addRow() {
-		//  const tr = createTR();
-		//  for(let col =0; col<this.model.numCols; col++){
-		// 	const td= createTD();
-		// 	tr.appendChild(td);
-		// }
-		// this.sheetBodyEl.appendChild(tr);
-		// this.model.rows = this.model.rows+1
 		this.model.numRows++;
 		this.renderTableBody()
-
 	}
+
 
 	addColmn ( ) {
 		this.model.numCols++;
@@ -80,6 +82,8 @@ class TableView {
 		this.sum();
 		this.renderTableFooter();
 	}
+
+
 	renderTableBody() {
 		const fragment = document.createDocumentFragment();
 		for(let row =0; row < this.model.numRows; row++) {
@@ -96,14 +100,9 @@ class TableView {
 			}
 			fragment.appendChild(tr); 
 		}
-
 		removeChildren(this.sheetBodyEl); 
 		this.sheetBodyEl.appendChild(fragment); 
-
-	
 	}
-
-
 
 
 	sum () {
@@ -119,7 +118,7 @@ class TableView {
 				} 
   			}
   		} 
-  		return nums; 
+  	return nums; 
 	}
 
 

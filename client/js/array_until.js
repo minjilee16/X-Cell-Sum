@@ -12,13 +12,8 @@ const letterGetRange = function (firstLetter="A", numLetters) {
 }
 
 
-// const sum = function (allNum) {
-// 	return allNum.reduce((a,b) => a+b); 
-// }
-
 
 module.exports={
 	getRange : getRange,
 	letterGetRange : letterGetRange, 
-	// sum : sum 
 };
