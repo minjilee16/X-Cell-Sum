@@ -10,39 +10,39 @@ tableView.init();
 
 },{"./table_model":4,"./table_view":5}],2:[function(require,module,exports){
 const getRange = function (fromNum, toNum) {
-	return Array.from( {length: toNum-fromNum+1}, 
-		(unused, i) => i +fromNum);
+  return Array.from( {length: toNum-fromNum+1}, 
+    (unused, i) => i +fromNum);
 }
 
 const letterGetRange = function (firstLetter="A", numLetters) {
-	const rangeStart = firstLetter.charCodeAt(0);
-	const rangeEnd = rangeStart + numLetters  -1; 
-	return getRange(rangeStart, rangeEnd)
-	.map(charCode => String.fromCharCode(charCode) );
+  const rangeStart = firstLetter.charCodeAt(0);
+  const rangeEnd = rangeStart + numLetters  -1; 
+  return getRange(rangeStart, rangeEnd)
+  .map(charCode => String.fromCharCode(charCode) );
 
 }
 
 
 
 module.exports={
-	getRange : getRange,
-	letterGetRange : letterGetRange, 
+  getRange : getRange,
+  letterGetRange : letterGetRange, 
 };
 },{}],3:[function(require,module,exports){
 const removeChildren = function (parentEl) {
-	while(parentEl.firstChild) {
-		parentEl.removeChild(parentEl.firstChild); 
-	}
+  while(parentEl.firstChild) {
+    parentEl.removeChild(parentEl.firstChild); 
+  }
 }
 
 const createEl= function (tagName) {
-	return function(text) {
-		const el = document.createElement(tagName);
-		if(text) {
-			el.textContent=text; 
-		}
-		return el; 
-	};
+  return function(text) {
+    const el = document.createElement(tagName);
+    if(text) {
+      el.textContent=text; 
+    }
+    return el; 
+  };
 };
 
 
@@ -52,30 +52,30 @@ const createTD = createEl('TD');
 
 
 module.exports = {
-	removeChildren : removeChildren,
-	createTR : createTR,
-	createTH : createTH,
-	createTD : createTD
+  removeChildren : removeChildren,
+  createTR : createTR,
+  createTH : createTH,
+  createTD : createTD
 };
 },{}],4:[function(require,module,exports){
 class TableModel {
-	constructor (numCols=10, numRows=20) {
-		this.numCols = numCols;
-		this.numRows = numRows;
-		this.data = {};
-	}
+  constructor (numCols=10, numRows=20) {
+    this.numCols = numCols;
+    this.numRows = numRows;
+    this.data = {};
+  }
 
-	_getCellId (location) {
-		return `${location.col}:${location.row}`;
-	}
+  _getCellId (location) {
+    return `${location.col}:${location.row}`;
+  }
 
-	getValue (location) {
-		return this.data[this._getCellId(location)]; 
-	}
+  getValue (location) {
+    return this.data[this._getCellId(location)]; 
+  }
 
-	setValue (location, value) {
-		return this.data[this._getCellId(location)] = value; 
-	}
+  setValue (location, value) {
+    return this.data[this._getCellId(location)] = value; 
+  }
 }
 
 
