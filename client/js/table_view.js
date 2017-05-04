@@ -58,8 +58,8 @@ class TableView {
   renderTableHeader() {
     removeChildren(this.headerRowEl);
     letterGetRange('A', this.model.numCols)
-    .map(colLabel => createTH(colLabel))
-    .forEach(th => this.headerRowEl.appendChild(th)); 
+      .map(colLabel => createTH(colLabel))
+      .forEach(th => this.headerRowEl.appendChild(th)); 
   }
 
 
@@ -71,11 +71,11 @@ class TableView {
 
   addRow() {
     this.model.numRows++;
-    this.renderTableBody()
+    this.renderTableBody();
   }
 
 
-  addColmn ( ) {
+  addColumn ( ) {
     this.model.numCols++;
     this.renderTableHeader();
     this.renderTableBody();
@@ -86,9 +86,9 @@ class TableView {
 
   renderTableBody() {
     const fragment = document.createDocumentFragment();
-    for(let row =0; row < this.model.numRows; row++) {
+    for(let row = 0; row < this.model.numRows; row++) {
       const tr = createTR(); 
-      for(let col =0; col<this.model.numCols; col++) {
+      for(let col = 0; col < this.model.numCols; col++) {
         const position = {col:col, row:row}; 
         const value = this.model.getValue(position);
         const td = createTD(value); 
@@ -107,8 +107,8 @@ class TableView {
 
   sum () {
       let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return null });
-    for(let row =0; row < this.model.numRows; row++) {
-      for(let col =0; col<this.model.numCols; col++) {
+    for(let row = 0; row < this.model.numRows; row++) {
+      for(let col = 0; col < this.model.numCols; col++) {
         const position = {col:col, row:row}; 
         const value = this.model.getValue(position);
   
@@ -116,16 +116,16 @@ class TableView {
          if( !isNaN(onlyNum) ) {
           nums[col] += onlyNum;
         } 
-        }
-      } 
+      }
+    } 
     return nums; 
   }
 
 
   renderTableFooter() {
     const tr = createTR();
-    for(let col =0; col<this.model.numCols; col++){
-      const td= createTD();
+    for(let col = 0; col< this.model.numCols; col++){
+      const td = createTD();
       tr.appendChild(td);
     }
     removeChildren(this.footerEl);
@@ -133,7 +133,7 @@ class TableView {
 
     let footCol = this.footerEl.querySelectorAll('TD');
     let numsSum = this.sum();
-    for (let i=0; i < this.model.numCols; i++) {
+    for (let i = 0; i < this.model.numCols; i++) {
       footCol[i].textContent = numsSum[i];
     }
   }
@@ -144,7 +144,7 @@ class TableView {
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this)); 
     this.formulaBarEl.addEventListener('keyup', this.renderTableFooter.bind(this)); 
     this.addRowEl.addEventListener('click', this.addRow.bind(this)); 
-    this.addColEl.addEventListener('click', this.addColmn.bind(this)); 
+    this.addColEl.addEventListener('click', this.addColumn.bind(this)); 
   }
 
 
