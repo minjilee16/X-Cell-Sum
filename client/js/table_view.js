@@ -106,7 +106,7 @@ class TableView {
 
 
   sum () {
-      let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return null });
+    let nums= Array.apply(null, Array(this.model.numCols)).map(function() { return null });
     for(let row = 0; row < this.model.numRows; row++) {
       for(let col = 0; col < this.model.numCols; col++) {
         const position = {col:col, row:row}; 
